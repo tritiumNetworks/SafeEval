@@ -12,7 +12,9 @@ function run (code, { allowRequire, allowProcess, allowModule } = {}) {
   box.regCode(code)
 
   try {
-    return box.execute()
+    const res = box.execute()
+    delete require.cache[require.resolve('./box.js')]
+    return res
   } catch (err) { return err }
 }
 

@@ -1,5 +1,5 @@
 const seval = require('../index')
-const code = 'console.log()'
+const code = '1+1'
 
 const option = {
   allowRequire: false,
