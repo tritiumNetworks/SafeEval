@@ -4,7 +4,8 @@ const code = '1+1'
 const option = {
   allowRequire: false,
   allowProcess: false,
-  allowModule: false
+  allowModule: false,
+  blacklist: '+'
 }
 
 console.log(seval(code, option))
