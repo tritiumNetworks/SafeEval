@@ -7,14 +7,10 @@ Just safe(?) eval function
 ## Usage
 ```js
 const seval = require('seval')
+const { basic: dangerlist } = require('seval/presets')
+// preset list: basic, infLoop, this, blockAll
 
-const option = {
-  allowRequire: false,
-  allowProcess: false,
-  allowModule: false
-}
-
-seval('console.log("Hello, world!")', option)
+seval('console.log("Hello, world!")', { dangerlist })
 ```
 
 ## How it works (it's simple!)
