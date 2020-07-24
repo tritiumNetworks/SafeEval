@@ -1,19 +1,18 @@
 /**
  * @param {String} code String codes for run
  * @param {Object} opt Running Options
+ * @param {String | String[]} opt.dangerlist List of danger items
  */
-function run (code, { allowRequire, allowProcess, allowModule, blacklist = [] } = {}) {
-  if (!allowRequire) code = 'require = undefined;\n' + code
-  if (!allowProcess) code = 'module?module.require = undefined:undefined; process = undefined;\n' + code
-  if (!allowModule) code = 'module = undefined;\n' + code
+function run (code, { dangerlist = [] } = {}) {
+  if (typeof dangerlist === 'string') dangerlist = [dangerlist]
 
-  if (typeof blacklist === 'string') blacklist = [blacklist]
   let blocked
-
-  blacklist.forEach((black) => {
-    if (code.includes(black)) {
-      blocked = 'Error: Sorry, keyword "' + black + '" is blocked'
-    }
+  dangerlist.forEach((danger) => {
+    const box = require('./directbox')
+    const tgcode = danger + '=undefined;\n'
+    if (!(box.execute(tgcode) instanceof Error)) code = tgcode + code
+    else if (code.includes(danger)) blocked = 'Error: Sorry keyword "' + danger + '" has been blocked'
+    delete require.cache[require.resolve('./directbox.js')]
   })
 
   if (blocked) return blocked

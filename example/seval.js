@@ -1,12 +1,6 @@
 const seval = require('../index')
-const code = '1+1'
+const { blockAll: dangerlist } = require('../presets')
+const code = 'while (true)'
 
-const option = {
-  allowRequire: false,
-  allowProcess: false,
-  allowModule: false,
-  blacklist: '+'
-}
-
-console.log(seval(code, option))
+console.log(seval(code, { dangerlist }))
 console.log('Execute Ended')
